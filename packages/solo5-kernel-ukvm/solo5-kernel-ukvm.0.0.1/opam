@@ -1,8 +1,8 @@
 opam-version: "1.2"
 
-build:  [make]
-install:[make "opam-install" "PREFIX=%{prefix}%"]
-remove: [make "opam-uninstall" "PREFIX=%{prefix}%"]
+build:  [make "ukvm_target"]
+install:[make "opam-ukvm-install" "PREFIX=%{prefix}%"]
+remove: [make "opam-ukvm-uninstall" "PREFIX=%{prefix}%"]
 
 depends: [
   "conf-pkg-config"
