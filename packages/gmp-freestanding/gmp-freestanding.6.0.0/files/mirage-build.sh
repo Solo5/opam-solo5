@@ -33,5 +33,5 @@ ac_cv_func_localeconv=no \
     CC=gcc "CPPFLAGS=$(pkg-config --cflags ${PKG_CONFIG_DEPS})"
 
 make SUBDIRS="mpn mpz mpq mpf" \
-    PRINTF_OBJECTS= SCANF_OBJECTS= RANDOM_OBJECTS= \
+    PRINTF_OBJECTS= SCANF_OBJECTS= \
     CFLAGS+=-Werror=implicit-function-declaration
