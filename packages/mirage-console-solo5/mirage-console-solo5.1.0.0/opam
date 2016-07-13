@@ -1,0 +1,25 @@
+opam-version: "1.2"
+maintainer:    "anil@recoil.org"
+homepage:      "https://github.com/mirage/mirage-console"
+bug-reports:   "https://github.com/mirage/mirage-console/issues"
+dev-repo:      "https://github.com/mirage/mirage-console.git"
+authors: [
+  "Anil Madhavapeddy"
+  "David Scott"
+]
+tags: [
+  "org:mirage"
+]
+build: [make
+         "PREFIX=%{prefix}%" ]
+install: [make "install" "PREFIX=%{prefix}%"]
+remove: ["ocamlfind" "remove" "mirage-console-solo5"]
+depends: [
+  "ocamlfind" {build}
+  "mirage-types-lwt"
+  "mirage-solo5"
+]
+depopts: [
+]
+conflicts: [
+]
