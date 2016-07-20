@@ -8,17 +8,14 @@ maintainer:   "david@numm.org"
 license:      "BSD2"
 
 build: [
-  ["./configure" "--prefix" prefix]
-  [make]
-]
-install: [make "install"]
-remove: [
-  ["ocamlfind" "remove" "mirage-entropy-solo5"]
+  ["ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%"]
 ]
 depends: [
   "ocamlfind" {build}
   "ocamlbuild" {build}
+  "topkg" {build & >= "0.7.6"}
   "cstruct" {>= "1.4.0"}
+  "lwt"
   "mirage-solo5"
   "ocaml-freestanding"
 ]
