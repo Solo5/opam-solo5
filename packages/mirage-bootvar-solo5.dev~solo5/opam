@@ -24,3 +24,4 @@ depends: [
   "lwt"
   "parse-argv"
 ]
+available: [ ocaml-version >= "4.04.2" ]
