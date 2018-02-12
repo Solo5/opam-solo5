@@ -27,4 +27,4 @@ depends: [
   "mirage-solo5" {>= "0.3.0"}
   "logs" {>= "0.6.0"}
 ]
-available: [ ocaml-version >= "4.01.0" ]
+available: [ ocaml-version >= "4.04.2" ]
