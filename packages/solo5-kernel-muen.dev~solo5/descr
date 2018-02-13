@@ -1,0 +1,4 @@
+Solo5 unikernel base (muen target)
+
+This package provides the Solo5 base layer to run MirageOS unikernels on the
+"muen" target using the Muen Separation Kernel.
