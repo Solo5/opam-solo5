@@ -1,1 +1,1 @@
-src: "git+https://github.com/mato/mirage-net-solo5.git#solo5-manifest"
+src: "git+https://github.com/mato/mirage-net-solo5.git#master"
