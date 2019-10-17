@@ -11,38 +11,37 @@ license: "ISC"
 dev-repo: "git+https://github.com/solo5/solo5.git"
 build: [
   ["./configure.sh"]
-  [make "V=1" "CONFIG_HVT=" "CONFIG_SPT=" "CONFIG_MUEN=" "CONFIG_GENODE="]
+  [make "V=1" "CONFIG_HVT=" "CONFIG_SPT=" "CONFIG_VIRTIO=" "CONFIG_GENODE="]
 ]
-install: [make "V=1" "CONFIG_HVT=" "CONFIG_SPT=" "CONFIG_MUEN=" "CONFIG_GENODE=" "install-opam-virtio" "PREFIX=%{prefix}%"]
+install: [make "V=1" "CONFIG_HVT=" "CONFIG_SPT=" "CONFIG_VIRTIO=" "CONFIG_GENODE=" "install-opam-muen" "PREFIX=%{prefix}%"]
 remove: [
   ["touch" "./Makeconf"]
-  [make "V=1" "uninstall-opam-virtio" "PREFIX=%{prefix}%"]
+  [make "V=1" "uninstall-opam-muen" "PREFIX=%{prefix}%"]
 ]
-depends: "conf-pkg-config"
+depends: [
+  "conf-pkg-config"
+  "conf-libseccomp" {build & os = "linux"}
+]
 conflicts: [
+  "solo5-bindings-genode"
   "solo5-bindings-hvt"
   "solo5-bindings-spt"
-  "solo5-bindings-muen"
-  "solo5-bindings-genode"
+  "solo5-bindings-virtio"
 ]
 available: [
   arch = "x86_64" &
   (os = "linux" | os = "freebsd" | os = "openbsd")
 ]
-synopsis: "Solo5 sandboxed execution environment (virtio target)"
+synopsis: "Solo5 sandboxed execution environment (muen target)"
 description: """
 Solo5 is a sandboxed execution environment primarily intended
 for, but not limited to, running applications built using various
 unikernels (a.k.a.  library operating systems).
 
 This package provides the Solo5 components needed to build
-MirageOS unikernels using the "virtio" target.
+MirageOS unikernels on the "muen" target. The resulting
+unikernels can then be deployed directly on a host running the
+Muen Separation Kernel.
 
-The "virtio" target is supported on 64-bit Linux and FreeBSD
-systems with hardware virtualization, and produces unikernels
-suitable for running on any virtio-compliant hypervisor (e.g.
-QEMU/KVM).
-
-Note that the "virtio" target provides limited support for
-current and future Solo5 features and abstractions. We recommend
-that you use the "hvt" target instead."""
+Building the "muen" target is supported on 64-bit Linux, FreeBSD
+and OpenBSD systems."""

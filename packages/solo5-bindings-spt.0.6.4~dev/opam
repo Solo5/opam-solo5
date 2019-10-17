@@ -11,14 +11,17 @@ license: "ISC"
 dev-repo: "git+https://github.com/solo5/solo5.git"
 build: [
   ["./configure.sh"]
-  [make "V=1" "CONFIG_SPT=" "CONFIG_VIRTIO=" "CONFIG_MUEN=" "CONFIG_GENODE="]
+  [make "V=1" "CONFIG_HVT=" "CONFIG_VIRTIO=" "CONFIG_MUEN=" "CONFIG_GENODE="]
 ]
-install: [make "V=1" "CONFIG_SPT=" "CONFIG_VIRTIO=" "CONFIG_MUEN=" "CONFIG_GENODE=" "install-opam-hvt" "PREFIX=%{prefix}%"]
+install: [make "V=1" "CONFIG_HVT=" "CONFIG_VIRTIO=" "CONFIG_MUEN=" "CONFIG_GENODE=" "install-opam-spt" "PREFIX=%{prefix}%"]
 remove: [
   ["touch" "./Makeconf"]
-  [make "V=1" "uninstall-opam-hvt" "PREFIX=%{prefix}%"]
+  [make "V=1" "uninstall-opam-spt" "PREFIX=%{prefix}%"]
 ]
-depends: "conf-pkg-config"
+depends: [
+  "conf-pkg-config"
+  "conf-libseccomp" {os = "linux"}
+]
 depexts: [
   ["linux-headers"] {os-distribution = "alpine"}
   ["linux-libc-dev"] {os-distribution = "debian"}
@@ -27,25 +30,22 @@ depexts: [
   ["linux-libc-dev"] {os-distribution = "ubuntu"}
 ]
 conflicts: [
-  "solo5-bindings-spt"
+  "solo5-bindings-hvt"
   "solo5-bindings-virtio"
   "solo5-bindings-muen"
   "solo5-bindings-genode"
 ]
 available: [
-  (arch = "x86_64" | arch = "arm64") &
-  (os = "linux" | os = "freebsd" | os = "openbsd")
+  (arch = "x86_64" | arch = "arm64") & os = "linux"
 ]
-synopsis: "Solo5 sandboxed execution environment (hvt target)"
+synopsis: "Solo5 sandboxed execution environment (spt target)"
 description: """
 Solo5 is a sandboxed execution environment primarily intended
 for, but not limited to, running applications built using various
 unikernels (a.k.a.  library operating systems).
 
-This package provides the Solo5 components needed to build and
-run MirageOS unikernels on the "hvt" target, including the
-"solo5-hvt" tender source code, and "solo5-hvt-configure" script
-used to specialize the tender at MirageOS unikernel build time.
+This package provides the Solo5 components needed to build
+MirageOS unikernels on the "spt" target and the "solo5-spt" tender
+binary used to run such unikernels.
 
-The "hvt" target is supported on 64-bit Linux, FreeBSD and
-OpenBSD systems with hardware virtualization."""
+The "spt" target is supported on 64-bit Linux systems only."""
